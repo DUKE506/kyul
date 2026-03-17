@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* [배경 계층] */
+  --bg-base: #0d1117;
+  --bg-surface: #161b22;
+  --bg-elevated: #21262d;
+
+  /* [보더] */
+  --border-main: #30363d;
+  --border-subtle: #21262d;
+
+  /* [텍스트] */
+  --text-primary: #e6edf3;
+  --text-secondary: #c9d1d9;
+  --text-muted: #8b949e;
+
+  /* [시맨틱 & 메인 시그니처] */
+  --color-up: #3fb950;
+  --color-down: #f85149;
+  --color-warn: #e3b341;
+  --color-accent: #58a6ff; /* 메인 시그니처: 일렉트릭 사이언 */
+  --color-accent-glow: rgba(88, 166, 255, 0.15);
+
+  /* [임팩트 배지] */
+  --badge-warn-bg: #3a2a1f;
+  --badge-warn-text: #e3b341;
+  --badge-good-bg: #1f3a1f;
+  --badge-good-text: #3fb950;
+  --badge-down-bg: #3a1f1f; /* 누락: 손실 배지 배경 */
+  --badge-down-text: #f85149;
+}
+
+@theme inline {
+  /* Tailwind 클래스로 매핑 (bg-base, text-up 등으로 사용 가능) */
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+
+  --color-border-main: var(--border-main);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-accent: var(--color-accent);
+  --color-accent-glow: var(--color-accent-glow);
+
+  --color-up: var(--color-up);
+  --color-down: var(--color-down);
+  --color-warn: var(--color-warn);
+
+  /* 배지용 컬러 추가 */
+  --color-badge-good-bg: var(--badge-good-bg);
+  --color-badge-good-text: var(--badge-good-text);
+  --color-badge-warn-bg: var(--badge-warn-bg);
+  --color-badge-warn-text: var(--badge-warn-text);
+  --color-badge-down-bg: var(--badge-down-bg);
+  --color-badge-down-text: var(--badge-down-text);
+}
+
+/* 다크 모드 고정 (시스템 설정 무시) */
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  /* 폰트: Geist가 깔려있다면 Geist를, 없다면 Sans-serif를 사용 */
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* 전역 스크롤바 커스텀 (결 디자인에 맞춰서) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-main);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-elevated);
+}
