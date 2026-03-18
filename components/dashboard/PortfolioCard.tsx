@@ -1,51 +1,62 @@
+import { StockBrief } from "@/types/analysis";
 import React from "react";
-
-interface StockProps {
-  name: string;
-  ticker: string;
-  price: string;
-  changeRate: number;
-  isUp: boolean;
-}
 
 export const PortfolioCard = ({
   name,
   ticker,
   price,
+  avgPrice,
+  totalValue,
   changeRate,
   isUp,
-}: StockProps) => {
+}: StockBrief) => {
   return (
-    <div className="group bg-bg-surface border border-border-main rounded-2xl p-5 hover:bg-bg-elevated hover:border-accent/30 transition-all duration-300 cursor-pointer shadow-sm">
+    <div className="bg-bg-surface border border-border-main p-6 rounded-[2rem] hover:border-accent/40 transition-all group">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-text-primary font-bold text-lg leading-tight">
-            {name}
-          </h3>
-          <span className="text-text-muted text-xs font-medium uppercase tracking-wider">
+          <h4 className="text-text-primary font-black text-lg">{name}</h4>
+          <span className="text-text-muted text-xs font-mono uppercase">
             {ticker}
           </span>
         </div>
-        {/* 수익률 배지: 동희님이 정의한 badge-good/down 활용 */}
-        <div
-          className={`px-2.5 py-1 rounded-md text-xs font-bold ${
-            isUp
-              ? "bg-badge-good-bg text-badge-good-text"
-              : "bg-badge-down-bg text-badge-down-text"
-          }`}
-        >
-          {isUp ? "+" : ""}
-          {changeRate}%
+        <div className={`text-sm font-bold ${isUp ? "text-up" : "text-down"}`}>
+          {isUp ? "▲" : "▼"} {Math.abs(changeRate)}%
         </div>
       </div>
 
-      <div className="flex items-end justify-between">
-        <div className="text-2xl font-bold text-text-primary tracking-tight">
-          {price}{" "}
-          <span className="text-sm font-normal text-text-muted">KRW</span>
+      <div className="space-y-3">
+        {/* 평가금액 섹션 (가장 중요) */}
+        <div className="flex justify-between items-end">
+          <span className="text-text-muted text-xs font-medium">평가금액</span>
+          <span className="text-text-primary font-black text-xl">
+            {totalValue}{" "}
+            <small className="text-[10px] text-text-muted font-normal">
+              KRW
+            </small>
+          </span>
         </div>
-        {/* 미니 차트가 들어갈 자리 (Placeholder) */}
-        <div className="h-8 w-20 bg-border-subtle rounded-md animate-pulse" />
+
+        <div className="h-[1px] bg-border-subtle w-full" />
+
+        {/* 상세 가격 정보 (현재가 vs 평단가) */}
+        <div className="grid grid-cols-2 gap-4 pt-1">
+          <div className="flex flex-col">
+            <span className="text-text-muted text-[10px] uppercase font-bold tracking-wider">
+              Current
+            </span>
+            <span className="text-text-secondary font-bold text-sm">
+              {price}
+            </span>
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="text-text-muted text-[10px] uppercase font-bold tracking-wider">
+              Average
+            </span>
+            <span className="text-text-secondary font-bold text-sm">
+              {avgPrice}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
